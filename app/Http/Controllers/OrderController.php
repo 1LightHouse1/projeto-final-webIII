@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -26,7 +27,7 @@ class OrderController extends Controller
         $total = 0;
 
         foreach ($validated['items'] as $item) {
-            $product = \App\Models\Product::findOrFail($item['product_id']);
+            $product = Product::findOrFail($item['product_id']);
             $total += $product->price * $item['quantity'];
         }
 
@@ -37,7 +38,7 @@ class OrderController extends Controller
         ]);
 
         foreach ($validated['items'] as $item) {
-            $product = \App\Models\Product::findOrFail($item['product_id']);
+            $product = Product::findOrFail($item['product_id']);
             
             OrderItem::create([
                 'order_id' => $order->id,

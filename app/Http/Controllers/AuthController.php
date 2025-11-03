@@ -27,9 +27,13 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'user' => $user,
-            'token' => $token,
-            'token_type' => 'Bearer'
+            'status' => 'success',
+            'message' => 'Usuário registrado com sucesso',
+            'data' => [
+                'user' => $user,
+                'token' => $token,
+                'token_type' => 'Bearer'
+            ]
         ], 201);
     }
 
@@ -51,9 +55,13 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'user' => $user,
-            'token' => $token,
-            'token_type' => 'Bearer'
+            'status' => 'success',
+            'message' => 'Login realizado com sucesso',
+            'data' => [
+                'user' => $user,
+                'token' => $token,
+                'token_type' => 'Bearer'
+            ]
         ]);
     }
 
@@ -61,6 +69,10 @@ class AuthController extends Controller
     {
         $request->user()->tokens()->where('id', $request->user()->currentAccessToken()->id)->delete();
 
-        return response()->json(['message' => 'Logout realizado com sucesso']);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Logout realizado com sucesso',
+            'data' => null
+        ]);
     }
 }

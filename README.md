@@ -2,14 +2,14 @@
 
 Sistema de e-commerce desenvolvido com Laravel, contendo API RESTful para gerenciamento de usuários, produtos, categorias e pedidos, com autenticação via token JWT usando Laravel Sanctum e controle de acesso com Gates e Policies.
 
-## 📋 Requisitos
+## Requisitos
 
 - PHP >= 8.2
 - Composer
 - MySQL (via XAMPP)
 - XAMPP com Apache e MySQL ativos
 
-## 🚀 Instalação
+##  Instalação
 
 ### 1. Clone o repositório ou baixe o projeto
 
@@ -62,13 +62,25 @@ php artisan migrate:fresh
 
 Este comando criará todas as tabelas necessárias no banco de dados.
 
-### 6. Gere a chave da aplicação (se necessário)
+### 6. Execute os seeders (popular banco com dados de exemplo)
+
+```bash
+php artisan db:seed
+```
+
+Este comando criará:
+- 1 usuário admin: `admin@ecommerce.com` / `admin123`
+- 2 usuários comuns: `usuario@ecommerce.com` / `user123` e `joao@ecommerce.com` / `user123`
+- 4 categorias de exemplo
+- 8 produtos de exemplo
+
+### 7. Gere a chave da aplicação (se necessário)
 
 ```bash
 php artisan key:generate
 ```
 
-## 🏃 Executando o Projeto
+## Executando o Projeto
 
 ### Inicie o servidor de desenvolvimento
 
@@ -78,7 +90,7 @@ php artisan serve
 
 O projeto estará disponível em: `http://localhost:8000`
 
-## 🔐 Autenticação
+## Autenticação
 
 O sistema utiliza Laravel Sanctum para autenticação via token JWT (Bearer Token).
 
@@ -93,8 +105,62 @@ O sistema utiliza Laravel Sanctum para autenticação via token JWT (Bearer Toke
 ```bash
 curl -X POST http://localhost:8000/api/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"usuario@email.com","password":"senha123"}'
+  -d '{"email":"admin@ecommerce.com","password":"admin123"}'
 ```
+
+### Credenciais de Teste (após seeders)
+
+**Admin:**
+- Email: `admin@ecommerce.com`
+- Senha: `admin123`
+
+**Usuário Comum:**
+- Email: `usuario@ecommerce.com`
+- Senha: `user123`
+
+## Documentação da API
+
+A API está completamente documentada através de coleções do Postman/Insomnia:
+
+- **`API_COLLECTION_POSTMAN.json`** - Para Postman
+- **`API_COLLECTION.json`** - Para Insomnia
+- **`GUIA_COLECAO_API.md`** - Guia completo de uso
+
+### Como usar:
+
+1. Importe a coleção no Postman ou Insomnia
+2. Configure a variável `base_url` como `http://localhost:8000`
+3. Execute os requests organizados por categoria
+
+Consulte o arquivo `GUIA_COLECAO_API.md` para instruções detalhadas.
+
+
+## Endpoints da API
+
+### Rotas Públicas (não requerem autenticação)
+- `GET /api/products` - Listar produtos
+- `GET /api/products/{id}` - Visualizar produto
+- `GET /api/categories` - Listar categorias
+- `GET /api/categories/{id}` - Visualizar categoria
+- `POST /api/register` - Registrar usuário
+- `POST /api/login` - Autenticar
+
+### Rotas Protegidas (requerem autenticação)
+- `POST /api/logout` - Revogar token
+- `GET /api/orders` - Listar pedidos do usuário
+- `POST /api/orders` - Criar pedido
+- `GET /api/orders/{id}` - Visualizar pedido
+- `PUT /api/orders/{id}` - Atualizar pedido
+- `DELETE /api/orders/{id}` - Deletar pedido
+
+### Rotas Admin (requerem autenticação + role admin)
+- `POST /api/products` - Criar produto
+- `PUT /api/products/{id}` - Atualizar produto
+- `DELETE /api/products/{id}` - Deletar produto
+- `POST /api/categories` - Criar categoria
+- `PUT /api/categories/{id}` - Atualizar categoria
+- `DELETE /api/categories/{id}` - Deletar categoria
+
 
 ## 📄 Licença
 

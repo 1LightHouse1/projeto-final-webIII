@@ -29,53 +29,9 @@
 
 @section('scripts')
 <script>
-    const token = localStorage.getItem('api_token');
-    const categoryId = {{ $id }};
-    
-    async function loadCategory() {
-        try {
-            const response = await fetch(`/api/categories/${categoryId}`);
-            const category = await response.json();
-            
-            document.getElementById('name').value = category.name;
-            document.getElementById('description').value = category.description || '';
-        } catch (error) {
-            console.error('Erro ao carregar categoria:', error);
-        }
-    }
-
-    document.getElementById('categoryForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formData = {
-            name: document.getElementById('name').value,
-            description: document.getElementById('description').value
-        };
-
-        try {
-            const response = await fetch(`/api/categories/${categoryId}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-
-            if (response.ok) {
-                window.location.href = '/categories';
-            } else {
-                const data = await response.json();
-                alert(data.message || 'Erro ao atualizar categoria');
-            }
-        } catch (error) {
-            alert('Erro ao atualizar categoria');
-        }
-    });
-
-    loadCategory();
+    window.categoryId = {{ $id }};
 </script>
+<script src="{{ asset('js/categories-edit.js') }}"></script>
 @endsection
 @endsection
 

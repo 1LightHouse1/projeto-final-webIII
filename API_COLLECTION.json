@@ -1,0 +1,740 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-11-02T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "req_auth_register",
+      "parentId": "fld_auth",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/register",
+      "name": "Register - Registrar Usuário",
+      "description": "Registra um novo usuário no sistema. Retorna token de autenticação.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"João Silva\",\n  \"email\": \"joao@email.com\",\n  \"password\": \"senha123456\",\n  \"password_confirmation\": \"senha123456\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_content-type"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 1000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_auth_login",
+      "parentId": "fld_auth",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/login",
+      "name": "Login - Autenticar Usuário",
+      "description": "Autentica um usuário e retorna token JWT. Use este token nas próximas requisições protegidas.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"admin@ecommerce.com\",\n  \"password\": \"admin123\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_content-type"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 2000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_auth_logout",
+      "parentId": "fld_auth",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/logout",
+      "name": "Logout - Revogar Token",
+      "description": "Revoga o token de autenticação atual. Requer autenticação.",
+      "method": "POST",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}",
+          "id": "pair_authorization"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 3000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_products_list",
+      "parentId": "fld_products",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/products",
+      "name": "Listar Produtos (Público)",
+      "description": "Lista todos os produtos disponíveis. Endpoint público, não requer autenticação.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 1000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_products_show",
+      "parentId": "fld_products",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/products/1",
+      "name": "Visualizar Produto (Público)",
+      "description": "Visualiza detalhes de um produto específico. Endpoint público.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 2000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_products_create",
+      "parentId": "fld_products",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/products",
+      "name": "Criar Produto (Admin)",
+      "description": "Cria um novo produto. Requer autenticação e permissão de admin. Demonstra erro 403 se usuário comum tentar.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Novo Produto\",\n  \"description\": \"Descrição do produto\",\n  \"price\": 99.90,\n  \"stock\": 50,\n  \"category_id\": 1\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}",
+          "id": "pair_authorization"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_content-type"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 3000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_products_update",
+      "parentId": "fld_products",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/products/1",
+      "name": "Atualizar Produto (Admin)",
+      "description": "Atualiza um produto existente. Requer autenticação e permissão de admin.",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Produto Atualizado\",\n  \"price\": 149.90,\n  \"stock\": 75\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}",
+          "id": "pair_authorization"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_content-type"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 4000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_products_delete",
+      "parentId": "fld_products",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/products/1",
+      "name": "Deletar Produto (Admin)",
+      "description": "Deleta um produto (soft delete). Requer autenticação e permissão de admin.",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}",
+          "id": "pair_authorization"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 5000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_categories_list",
+      "parentId": "fld_categories",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/categories",
+      "name": "Listar Categorias (Público)",
+      "description": "Lista todas as categorias. Endpoint público.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 1000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_categories_show",
+      "parentId": "fld_categories",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/categories/1",
+      "name": "Visualizar Categoria (Público)",
+      "description": "Visualiza detalhes de uma categoria. Endpoint público.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 2000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_categories_create",
+      "parentId": "fld_categories",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/categories",
+      "name": "Criar Categoria (Admin)",
+      "description": "Cria uma nova categoria. Requer autenticação e permissão de admin.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Nova Categoria\",\n  \"description\": \"Descrição da categoria\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}",
+          "id": "pair_authorization"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_content-type"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 3000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_categories_update",
+      "parentId": "fld_categories",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/categories/1",
+      "name": "Atualizar Categoria (Admin)",
+      "description": "Atualiza uma categoria. Requer autenticação e permissão de admin.",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Categoria Atualizada\",\n  \"description\": \"Nova descrição\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}",
+          "id": "pair_authorization"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_content-type"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 4000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_categories_delete",
+      "parentId": "fld_categories",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/categories/1",
+      "name": "Deletar Categoria (Admin)",
+      "description": "Deleta uma categoria (soft delete). Requer autenticação e permissão de admin.",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}",
+          "id": "pair_authorization"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 5000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_orders_list",
+      "parentId": "fld_orders",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/orders",
+      "name": "Listar Meus Pedidos",
+      "description": "Lista todos os pedidos do usuário autenticado. Cada usuário vê apenas seus próprios pedidos (Policy).",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}",
+          "id": "pair_authorization"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 1000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_orders_create",
+      "parentId": "fld_orders",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/orders",
+      "name": "Criar Pedido",
+      "description": "Cria um novo pedido. O total é calculado automaticamente no servidor. Requer autenticação.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 2\n    },\n    {\n      \"product_id\": 2,\n      \"quantity\": 1\n    }\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}",
+          "id": "pair_authorization"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_content-type"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 2000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_orders_show",
+      "parentId": "fld_orders",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/orders/1",
+      "name": "Visualizar Pedido",
+      "description": "Visualiza detalhes de um pedido específico. Só retorna se o pedido pertence ao usuário autenticado (Policy).",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}",
+          "id": "pair_authorization"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 3000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_orders_update",
+      "parentId": "fld_orders",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/orders/1",
+      "name": "Atualizar Pedido",
+      "description": "Atualiza o status de um pedido. Só pode atualizar seus próprios pedidos (Policy).",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"processing\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}",
+          "id": "pair_authorization"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_content-type"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 4000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_orders_delete",
+      "parentId": "fld_orders",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "url": "{{ _.base_url }}/api/orders/1",
+      "name": "Deletar Pedido",
+      "description": "Deleta um pedido. Só pode deletar seus próprios pedidos (Policy).",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}",
+          "id": "pair_authorization"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "pair_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 5000000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_base",
+      "parentId": "env",
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8000",
+        "token": ""
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_url",
+          "token"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1730592000000,
+      "_type": "environment"
+    },
+    {
+      "_id": "fld_auth",
+      "parentId": null,
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "name": "Autenticação",
+      "description": "Endpoints de registro, login e logout",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 1000000000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_products",
+      "parentId": null,
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "name": "Produtos",
+      "description": "Endpoints para gerenciamento de produtos. CRUD completo.",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 2000000000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_categories",
+      "parentId": null,
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "name": "Categorias",
+      "description": "Endpoints para gerenciamento de categorias. CRUD completo.",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 3000000000000,
+      "request_group": "fld_categories",
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_orders",
+      "parentId": null,
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "name": "Pedidos",
+      "description": "Endpoints para gerenciamento de pedidos. Cada usuário gerencia apenas seus próprios pedidos.",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 4000000000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "env",
+      "parentId": null,
+      "modified": 1730592000000,
+      "created": 1730592000000,
+      "name": "Insomnia",
+      "data": {},
+      "dataPropertyOrder": {
+        "&": []
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1730592000000,
+      "_type": "environment"
+    }
+  ]
+}
+

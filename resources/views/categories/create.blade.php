@@ -28,39 +28,7 @@
 </div>
 
 @section('scripts')
-<script>
-    const token = localStorage.getItem('api_token');
-    
-    document.getElementById('categoryForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formData = {
-            name: document.getElementById('name').value,
-            description: document.getElementById('description').value
-        };
-
-        try {
-            const response = await fetch('/api/categories', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-
-            if (response.ok) {
-                window.location.href = '/categories';
-            } else {
-                const data = await response.json();
-                alert(data.message || 'Erro ao criar categoria');
-            }
-        } catch (error) {
-            alert('Erro ao criar categoria');
-        }
-    });
-</script>
+<script src="{{ asset('js/categories-create.js') }}"></script>
 @endsection
 @endsection
 

@@ -11,7 +11,11 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return response()->json($categories);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Categorias listadas com sucesso',
+            'data' => $categories
+        ]);
     }
 
     public function store(Request $request)
@@ -25,13 +29,21 @@ class CategoryController extends Controller
 
         $category = Category::create($validated);
 
-        return response()->json($category, 201);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Categoria criada com sucesso',
+            'data' => $category
+        ], 201);
     }
 
     public function show(string $id)
     {
         $category = Category::findOrFail($id);
-        return response()->json($category);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Categoria encontrada',
+            'data' => $category
+        ]);
     }
 
     public function update(Request $request, string $id)
@@ -47,7 +59,11 @@ class CategoryController extends Controller
 
         $category->update($validated);
 
-        return response()->json($category);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Categoria atualizada com sucesso',
+            'data' => $category
+        ]);
     }
 
     public function destroy(string $id)
@@ -57,6 +73,10 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return response()->json(['message' => 'Categoria excluída com sucesso']);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Categoria excluída com sucesso',
+            'data' => null
+        ]);
     }
 }

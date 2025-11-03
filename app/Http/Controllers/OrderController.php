@@ -13,7 +13,11 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $orders = $request->user()->orders()->with('orderItems.product')->get();
-        return response()->json($orders);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Pedidos listados com sucesso',
+            'data' => $orders
+        ]);
     }
 
     public function store(Request $request)
@@ -50,7 +54,11 @@ class OrderController extends Controller
 
         $order->load('orderItems.product');
 
-        return response()->json($order, 201);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Pedido criado com sucesso',
+            'data' => $order
+        ], 201);
     }
 
     public function show(Request $request, string $id)
@@ -59,7 +67,11 @@ class OrderController extends Controller
         
         Gate::authorize('view', $order);
 
-        return response()->json($order);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Pedido encontrado',
+            'data' => $order
+        ]);
     }
 
     public function update(Request $request, string $id)
@@ -73,8 +85,13 @@ class OrderController extends Controller
         ]);
 
         $order->update($validated);
+        $order->load('orderItems.product');
 
-        return response()->json($order);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Pedido atualizado com sucesso',
+            'data' => $order
+        ]);
     }
 
     public function destroy(Request $request, string $id)
@@ -85,6 +102,10 @@ class OrderController extends Controller
 
         $order->delete();
 
-        return response()->json(['message' => 'Pedido excluído com sucesso']);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Pedido excluído com sucesso',
+            'data' => null
+        ]);
     }
 }

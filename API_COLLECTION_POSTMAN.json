@@ -1,0 +1,516 @@
+{
+  "info": {
+    "name": "E-Commerce API - Laravel",
+    "description": "Coleção completa de endpoints da API RESTful do sistema de e-commerce desenvolvido com Laravel Sanctum",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "12345678"
+  },
+  "item": [
+    {
+      "name": "Autenticação",
+      "item": [
+        {
+          "name": "Register - Registrar Usuário",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"João Silva\",\n  \"email\": \"joao@email.com\",\n  \"password\": \"senha123456\",\n  \"password_confirmation\": \"senha123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "register"]
+            },
+            "description": "Registra um novo usuário no sistema. Retorna token de autenticação."
+          },
+          "response": []
+        },
+        {
+          "name": "Login - Autenticar Usuário",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set('token', jsonData.data.token);",
+                  "    pm.environment.set('user_id', jsonData.data.user.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@ecommerce.com\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "login"]
+            },
+            "description": "Autentica um usuário e retorna token JWT. Use este token nas próximas requisições protegidas. O token é automaticamente salvo na variável de ambiente 'token'."
+          },
+          "response": []
+        },
+        {
+          "name": "Logout - Revogar Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/logout",
+              "host": ["{{base_url}}"],
+              "path": ["api", "logout"]
+            },
+            "description": "Revoga o token de autenticação atual. Requer autenticação."
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints de registro, login e logout"
+    },
+    {
+      "name": "Produtos",
+      "item": [
+        {
+          "name": "Listar Produtos (Público)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/products",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products"]
+            },
+            "description": "Lista todos os produtos disponíveis. Endpoint público, não requer autenticação."
+          },
+          "response": []
+        },
+        {
+          "name": "Visualizar Produto (Público)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", "1"]
+            },
+            "description": "Visualiza detalhes de um produto específico. Endpoint público."
+          },
+          "response": []
+        },
+        {
+          "name": "Criar Produto (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Novo Produto\",\n  \"description\": \"Descrição do produto\",\n  \"price\": 99.90,\n  \"stock\": 50,\n  \"category_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/products",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products"]
+            },
+            "description": "Cria um novo produto. Requer autenticação e permissão de admin. Se usuário comum tentar, retorna erro 403 Forbidden."
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Produto (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Produto Atualizado\",\n  \"price\": 149.90,\n  \"stock\": 75\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", "1"]
+            },
+            "description": "Atualiza um produto existente. Requer autenticação e permissão de admin."
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Produto (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", "1"]
+            },
+            "description": "Deleta um produto (soft delete). Requer autenticação e permissão de admin."
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints para gerenciamento de produtos. Listar e visualizar são públicos. Criar, atualizar e deletar requerem autenticação e permissão de admin."
+    },
+    {
+      "name": "Categorias",
+      "item": [
+        {
+          "name": "Listar Categorias (Público)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/categories",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories"]
+            },
+            "description": "Lista todas as categorias. Endpoint público."
+          },
+          "response": []
+        },
+        {
+          "name": "Visualizar Categoria (Público)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/categories/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "1"]
+            },
+            "description": "Visualiza detalhes de uma categoria. Endpoint público."
+          },
+          "response": []
+        },
+        {
+          "name": "Criar Categoria (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nova Categoria\",\n  \"description\": \"Descrição da categoria\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/categories",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories"]
+            },
+            "description": "Cria uma nova categoria. Requer autenticação e permissão de admin."
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Categoria (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Categoria Atualizada\",\n  \"description\": \"Nova descrição\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/categories/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "1"]
+            },
+            "description": "Atualiza uma categoria. Requer autenticação e permissão de admin."
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Categoria (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/categories/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "1"]
+            },
+            "description": "Deleta uma categoria (soft delete). Requer autenticação e permissão de admin."
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints para gerenciamento de categorias. Listar e visualizar são públicos. Criar, atualizar e deletar requerem autenticação e permissão de admin."
+    },
+    {
+      "name": "Pedidos",
+      "item": [
+        {
+          "name": "Listar Meus Pedidos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/orders",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders"]
+            },
+            "description": "Lista todos os pedidos do usuário autenticado. Cada usuário vê apenas seus próprios pedidos (implementado via Policy)."
+          },
+          "response": []
+        },
+        {
+          "name": "Criar Pedido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 2\n    },\n    {\n      \"product_id\": 2,\n      \"quantity\": 1\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/orders",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders"]
+            },
+            "description": "Cria um novo pedido. O total é calculado automaticamente no servidor com base nos preços dos produtos. Requer autenticação."
+          },
+          "response": []
+        },
+        {
+          "name": "Visualizar Pedido",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/orders/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders", "1"]
+            },
+            "description": "Visualiza detalhes de um pedido específico. Só retorna se o pedido pertence ao usuário autenticado (implementado via Policy). Se tentar acessar pedido de outro usuário, retorna erro 403."
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Pedido",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"processing\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/orders/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders", "1"]
+            },
+            "description": "Atualiza o status de um pedido. Valores permitidos: pending, processing, completed, cancelled. Só pode atualizar seus próprios pedidos (Policy)."
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Pedido",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/orders/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders", "1"]
+            },
+            "description": "Deleta um pedido (soft delete). Só pode deletar seus próprios pedidos (Policy)."
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints para gerenciamento de pedidos. Todos requerem autenticação. Cada usuário gerencia apenas seus próprios pedidos (implementado via OrderPolicy)."
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
+

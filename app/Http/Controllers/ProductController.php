@@ -11,7 +11,11 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('category')->get();
-        return response()->json($products);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Produtos listados com sucesso',
+            'data' => $products
+        ]);
     }
 
     public function store(Request $request)
@@ -27,14 +31,23 @@ class ProductController extends Controller
         ]);
 
         $product = Product::create($validated);
+        $product->load('category');
 
-        return response()->json($product, 201);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Produto criado com sucesso',
+            'data' => $product
+        ], 201);
     }
 
     public function show(string $id)
     {
         $product = Product::with('category')->findOrFail($id);
-        return response()->json($product);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Produto encontrado',
+            'data' => $product
+        ]);
     }
 
     public function update(Request $request, string $id)
@@ -52,8 +65,13 @@ class ProductController extends Controller
         ]);
 
         $product->update($validated);
+        $product->load('category');
 
-        return response()->json($product);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Produto atualizado com sucesso',
+            'data' => $product
+        ]);
     }
 
     public function destroy(string $id)
@@ -63,6 +81,10 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->delete();
 
-        return response()->json(['message' => 'Produto excluído com sucesso']);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Produto excluído com sucesso',
+            'data' => null
+        ]);
     }
 }
